@@ -1,5 +1,5 @@
 
-const MY_GOOGLE_API_KEY = 'AIzaSyAj-_WsU-9KX3U1AQL-I5g1p4LainMOPMk'
+const MY_GOOGLE_API_KEY = ''
 
 const YOUTUBE_URL = "https://youtube.googleapis.com/youtube/v3/"
 
