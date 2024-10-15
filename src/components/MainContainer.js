@@ -7,7 +7,7 @@ import VideoCardsContainer from './VideoCardsContainer'
 const MainContainer = () => {
 
     return (
-        <div>
+        <div >
             <ButtonPills />
             <VideoCardsContainer />
         </div>
