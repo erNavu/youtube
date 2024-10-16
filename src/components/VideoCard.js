@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { formatDistanceToNow, parseISO } from 'date-fns';
+import { RelativeTime } from '../utils/common'
 
 const formatViewCount = (viewCount) => {
     if (viewCount >= 1000000) {
@@ -15,19 +15,6 @@ const formatViewCount = (viewCount) => {
         return viewCount.toLocaleString();
     }
 };
-
-const RelativeTime = ({ timestamp }) => {
-    // Convert the timestamp (ISO format) to a JavaScript Date object
-    const date = parseISO(timestamp);
-
-    // Calculate the distance from the current time to the given date
-    const timeAgo = formatDistanceToNow(date, { addSuffix: true });
-
-    return (
-        <span className="text-gray-500 text-sm">{timeAgo}</span>
-    );
-};
-
 
 const VideoCard = ({ data, searchPage = false }) => {
     const { snippet: { thumbnails, title, channelTitle, publishedAt, description }, statistics } = data

@@ -67,6 +67,8 @@ const Header = () => {
                     type='text'
                     value={search}
                     onChange={handleSearch}
+                    onFocus={() => setShowSuggestions(true)}
+                    onBlur={() => setShowSuggestions(false)}
                 />
                 <button className='w-12 rounded-r-full border border-gray-400 bg-gray-400 dark:border-gray-700 dark:bg-gray-700 p-2 '>
                     <IoIosSearch fontSize={24} />

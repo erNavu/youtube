@@ -2,8 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useSearchParams } from "react-router-dom";
 import { useDispatch } from 'react-redux'
 import { closeMenu } from '../utils/appSlice'
+import { YOUTUBE_COMMENTS_LIST, YOUTUBE_VIDEO_DETAILS } from "../utils/contants"
+import CommentsList from './CommentsList';
+import WatchVideoDetails from './WatchVideoDetails';
 
 const WatchPage = () => {
+    const [commentData, setCommentData] = useState([])
+    const [videoDetails, setVideoDetails] = useState([])
     const [searchParams] = useSearchParams();
     const videoIdFromUrl = searchParams.get('v');
     const dispatch = useDispatch();
@@ -12,18 +17,46 @@ const WatchPage = () => {
         dispatch(closeMenu())
     }, [])
 
+    useEffect(() => {
+        fetchComments(videoIdFromUrl)
+        fetchVideoDetails(videoIdFromUrl)
+    }, [videoIdFromUrl])
+
+    const fetchComments = async (id) => {
+        const response = await fetch(YOUTUBE_COMMENTS_LIST + id)
+        const data = await response.json()
+        setCommentData(data.items)
+    }
+    const fetchVideoDetails = async (id) => {
+        const response = await fetch(YOUTUBE_VIDEO_DETAILS + id)
+        const data = await response.json()
+        setVideoDetails(data?.items)
+    }
+
     return (
-        <div>
-            <iframe
-                width="1000"
-                height="600"
-                src={`https://www.youtube.com/embed/` + videoIdFromUrl}
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen>
-            </iframe>
+        <div className='flex dark:text-gray-400 justify-between'>
+            <div className='w-8/12'>
+                <div >
+                    <iframe
+                        width="100%"
+                        height="600"
+                        src={`https://www.youtube.com/embed/` + videoIdFromUrl}
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        allowFullScreen>
+                    </iframe>
+                    {videoDetails?.length && <WatchVideoDetails data={videoDetails[0].snippet} />}
+                </div>
+                {commentData?.length && <div className='mx-1 w-full'>
+                    <h2 className='text-xl dark:text-gray-100 my-4'>Comments :</h2>
+                    <CommentsList comments={commentData} />
+                </div>}
+            </div>
+            <div className='w-3/12'>
+                Side Window comming soon
+            </div>
         </div>
 
     )
