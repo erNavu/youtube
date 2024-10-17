@@ -6,7 +6,7 @@ import { YOUTUBE_VIDEO_API } from '../utils/contants'
 import { useDispatch, useSelector } from 'react-redux'
 
 const VideoCardsContainer = () => {
-    //const [videoData, setVideoData] = useState([])
+
     const videoData = useSelector(store => store.app.videosList)
 
     const dispatch = useDispatch()
