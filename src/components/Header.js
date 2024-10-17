@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 import useDebounce from '../utils/useDebounce';
@@ -16,6 +16,7 @@ const Header = () => {
     const [showSuggestions, setShowSuggestions] = useState(false)
     const debouncedSearch = useDebounce(search, 200);
     const dispatch = useDispatch();
+    const suggestionsRef = useRef(null);
 
     const fetchSearchSuggestions = async (debouncedSearch) => {
         const response = await fetch(YOUTUBE_SEARCH_SUGGESTIONS + debouncedSearch)
@@ -49,6 +50,15 @@ const Header = () => {
         navigate("/results?search_query=" + id);
     }
 
+    const handleBlur = () => {
+        // Use a timeout to allow click events to register
+        setTimeout(() => {
+            if (!suggestionsRef.current || !suggestionsRef.current.contains(document.activeElement)) {
+                setShowSuggestions(false);
+            }
+        }, 100);
+    };
+
     return (
         <header className='grid grid-flow-col dark:text-gray-200 '>
             <div className='flex col-span-1 items-center'>
@@ -68,7 +78,7 @@ const Header = () => {
                     value={search}
                     onChange={handleSearch}
                     onFocus={() => setShowSuggestions(true)}
-                    onBlur={() => setShowSuggestions(false)}
+                    onBlur={handleBlur}
                 />
                 <button className='w-12 rounded-r-full border border-gray-400 bg-gray-400 dark:border-gray-700 dark:bg-gray-700 p-2 '>
                     <IoIosSearch fontSize={24} />
