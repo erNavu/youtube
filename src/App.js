@@ -27,7 +27,9 @@ function App() {
         }
       ]
     }
-  ])
+  ], {
+    basename: '/youtube'
+  })
 
   return (
     <Provider store={store}>
