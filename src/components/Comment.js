@@ -4,11 +4,16 @@ import { RelativeTime } from '../utils/common';
 
 const Comment = ({ ...props }) => {
     const [showReply, setShowReply] = useState(false)
+    const [imgError, setImgError] = useState(false);
     const { authorDisplayName, textDisplay, authorProfileImageUrl, updatedAt, replies, showReplySection } = props
     return (
         <div className='flex dark:text-gray-300 my-5 w-full'>
             <div className={`${showReplySection ? "min-w-10" : "min-w-14"} ml-1 mr-3`}>
-                {authorProfileImageUrl ? <img className={`${showReplySection ? "w-10" : "w-14"} rounded-full`} src={authorProfileImageUrl} alt="user" /> : <div className="relative w-14 h-14 mr-2 rounded-full bg-slate-500 text-gray-100 flex items-center justify-center overflow-hidden">
+                {!imgError ? <img
+                    className={`${showReplySection ? "w-10" : "w-14"} rounded-full`}
+                    src={authorProfileImageUrl} alt="user"
+                    onError={() => setImgError(true)}
+                /> : <div className="relative w-14 h-14 mr-2 rounded-full bg-slate-500 text-gray-100 flex items-center justify-center overflow-hidden">
                     <span className="text-2xl">{authorDisplayName.charAt(1).toUpperCase()}</span>
                 </div>}
 
