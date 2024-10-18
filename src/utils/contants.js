@@ -1,6 +1,8 @@
 
 const MY_GOOGLE_API_KEY = process.env.REACT_APP_API_KEY
 
+export const LIVE_CHAT_MAX_COUNT = 13
+
 const YOUTUBE_URL = "https://youtube.googleapis.com/youtube/v3/"
 
 export const YOUTUBE_VIDEO_API = YOUTUBE_URL + "videos?part=snippet%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=IN&key=" + MY_GOOGLE_API_KEY

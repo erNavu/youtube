@@ -1,6 +1,7 @@
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import React from 'react'
 
+
 export const RelativeTime = ({ timestamp }) => {
     // Convert the timestamp (ISO format) to a JavaScript Date object
     const date = parseISO(timestamp);
@@ -12,7 +13,6 @@ export const RelativeTime = ({ timestamp }) => {
         <span className="text-gray-500 text-sm">{timeAgo}</span>
     );
 };
-
 
 // Utility function to convert plain text into an array of JSX elements
 export const parseTextToJSX = (text) => {
@@ -47,3 +47,9 @@ export const parseTextToJSX = (text) => {
 
     return words;
 };
+export const generateRandomText = (list) => {
+    return list[Math.floor(Math.random() * list.length)];
+
+};
+
+

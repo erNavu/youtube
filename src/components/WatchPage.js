@@ -5,6 +5,8 @@ import { closeMenu } from '../utils/appSlice'
 import { YOUTUBE_COMMENTS_LIST, YOUTUBE_VIDEO_DETAILS } from "../utils/contants"
 import CommentsList from './CommentsList';
 import WatchVideoDetails from './WatchVideoDetails';
+import LiveChat from './LiveChat'
+
 
 const WatchPage = () => {
     const [commentData, setCommentData] = useState([])
@@ -53,12 +55,8 @@ const WatchPage = () => {
                     <CommentsList comments={commentData} />
                 </div>}
             </div>
-            <div className="w-full sm:w-3/12 mt-6 sm:mt-0">
-                <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded">
-                    Side Window coming soon
-                </div>
-            </div>
-        </div>
+            <LiveChat />
+        </div >
 
     )
 }
