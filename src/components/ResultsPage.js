@@ -35,7 +35,7 @@ const ResultsPage = () => {
 
     return (
         <div>
-            <div className='grid ml-16 mr-40 gap-y-6'>
+            <div className='grid sm:ml-16 sm:mr-40 gap-y-6'>
                 {videoData[searchQueryFromUrl]?.length ? videoData[searchQueryFromUrl].map((video) => {
                     let id = typeof video.id === 'string' ? video.id : (video.id.videoId)
                     if (id === undefined) return null

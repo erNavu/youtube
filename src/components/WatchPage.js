@@ -34,12 +34,11 @@ const WatchPage = () => {
     }
 
     return (
-        <div className='flex dark:text-gray-400 justify-between'>
-            <div className='w-8/12'>
-                <div >
+        <div className='flex-col sm:flex sm:flex-row dark:text-gray-400 justify-between'>
+            <div className='w-full sm:w-8/12'>
+                <div className="relative w-full pb-[56.25%]">
                     <iframe
-                        width="100%"
-                        height="600"
+                        className="absolute top-0 left-0 w-full h-full"
                         src={`https://www.youtube.com/embed/` + videoIdFromUrl}
                         title="YouTube video player"
                         frameBorder="0"
@@ -47,15 +46,17 @@ const WatchPage = () => {
                         referrerPolicy="strict-origin-when-cross-origin"
                         allowFullScreen>
                     </iframe>
-                    {videoDetails?.length && <WatchVideoDetails data={videoDetails[0].snippet} />}
                 </div>
+                {videoDetails?.length && <WatchVideoDetails data={videoDetails[0].snippet} />}
                 {commentData?.length && <div className='mx-1 w-full'>
-                    <h2 className='text-xl dark:text-gray-100 my-4'>Comments :</h2>
+                    <h2 className='sm:text-xl text-lg dark:text-gray-100 my-4'>Comments :</h2>
                     <CommentsList comments={commentData} />
                 </div>}
             </div>
-            <div className='w-3/12'>
-                Side Window comming soon
+            <div className="w-full sm:w-3/12 mt-6 sm:mt-0">
+                <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded">
+                    Side Window coming soon
+                </div>
             </div>
         </div>
 

@@ -10,10 +10,10 @@ const ExpandableText = ({ text }) => {
     return (
         <div className="">
             <div
-                className={`overflow-hidden transition-all duration-300 ${isExpanded ? 'max-h-full' : 'max-h-20'
+                className={`overflow-hidden transition-all duration-300 ${isExpanded ? 'max-h-full' : 'sm:max-h-20'
                     }`}
             >
-                <p className={`${!isExpanded ? 'line-clamp-4' : ''}`}>
+                <p className={`${!isExpanded ? 'sm:line-clamp-4 line-clamp-2' : ''}`}>
                     {text}
                 </p>
             </div>
