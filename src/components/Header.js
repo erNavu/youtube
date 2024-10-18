@@ -1,8 +1,9 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
 import useDebounce from '../utils/useDebounce';
 import { toggleMenu } from "../utils/appSlice";
+import { searchSuggestionsCache } from '../utils/searchSlice'
 import { YOUTUBE_SEARCH_SUGGESTIONS } from '../utils/contants';
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoIosSearch } from "react-icons/io";
@@ -12,23 +13,30 @@ import { CiSearch } from "react-icons/ci";
 const Header = () => {
     const [search, setSearch] = useState('')
     const navigate = useNavigate();
-    const [suggestions, setSuggestions] = useState([])
+    const dispatch = useDispatch();
+    const [searchParams] = useSearchParams();
     const [showSuggestions, setShowSuggestions] = useState(false)
     const debouncedSearch = useDebounce(search, 200);
-    const dispatch = useDispatch();
-    const suggestionsRef = useRef(null);
+    const searchQueryFromUrl = searchParams.get('search_query');
+    const suggestionsCache = useSelector(store => store.search.suggestionsCache)
+
+    // Effect to set initial search value from URL
+    useEffect(() => {
+        if (searchQueryFromUrl !== null) setSearch(searchQueryFromUrl)
+    }, [searchQueryFromUrl])
+
+    useEffect(() => {
+        if (showSuggestions && !suggestionsCache[debouncedSearch]) {
+            fetchSearchSuggestions(debouncedSearch)
+        }
+    }, [debouncedSearch, showSuggestions, suggestionsCache])
 
     const fetchSearchSuggestions = async (debouncedSearch) => {
         const response = await fetch(YOUTUBE_SEARCH_SUGGESTIONS + debouncedSearch)
         const data = await response.json()
-        setSuggestions(data[1])
+        const result = { [debouncedSearch]: data[1], ...suggestionsCache }
+        dispatch(searchSuggestionsCache(result))
     }
-
-    useEffect(() => {
-        if (showSuggestions) {
-            fetchSearchSuggestions(debouncedSearch)
-        }
-    }, [debouncedSearch, showSuggestions])
 
     const toggleMenuHandler = () => {
         dispatch(toggleMenu());
@@ -44,20 +52,14 @@ const Header = () => {
 
     const handleSuggestionsClick = (item) => {
         setSearch(item)
-        setSuggestions([])
         setShowSuggestions(false)
         const id = item.replaceAll(' ', '+')
         navigate("/results?search_query=" + id);
     }
 
-    const handleBlur = () => {
-        // Use a timeout to allow click events to register
-        setTimeout(() => {
-            if (!suggestionsRef.current || !suggestionsRef.current.contains(document.activeElement)) {
-                setShowSuggestions(false);
-            }
-        }, 100);
-    };
+    const handleOnBlur = () => {
+        setTimeout(() => setShowSuggestions(false), 200);
+    }
 
     return (
         <header className='grid grid-flow-col dark:text-gray-200 '>
@@ -78,13 +80,13 @@ const Header = () => {
                     value={search}
                     onChange={handleSearch}
                     onFocus={() => setShowSuggestions(true)}
-                    onBlur={handleBlur}
+                    onBlur={handleOnBlur}
                 />
                 <button className='w-12 rounded-r-full border border-gray-400 bg-gray-400 dark:border-gray-700 dark:bg-gray-700 p-2 '>
                     <IoIosSearch fontSize={24} />
                 </button>
-                {suggestions?.length && showSuggestions ? <ul className='absolute w-2/3 shadow-lg top-10 py-4 dark:bg-slate-800 m-2 rounded-lg bg-slate-400'>
-                    {suggestions.map((item, index) => (
+                {suggestionsCache[debouncedSearch]?.length && showSuggestions ? <ul className='absolute w-2/3 shadow-lg top-10 py-4 dark:bg-slate-800 m-2 rounded-lg bg-slate-400'>
+                    {suggestionsCache[debouncedSearch].map((item, index) => (
                         <li
                             key={index + item}
                             className="p-2 px-6 hover:bg-gray-600 flex items-center"

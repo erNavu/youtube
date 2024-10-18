@@ -4,14 +4,18 @@ const searchSlice = createSlice({
     name: 'search',
     initialState: {
         query: '',
-        results: []
+        searchCache: {},
+        suggestionsCache: {}
     },
     reducers: {
-        searchResults: (state, action) => {
-            state.results = action.payload
-        }
+        searchResultsCache: (state, action) => {
+            state.searchCache = action.payload
+        },
+        searchSuggestionsCache: (state, action) => {
+            state.suggestionsCache = action.payload
+        },
     }
 })
 
-export const { searchResults } = searchSlice.actions
+export const { searchResultsCache, searchSuggestionsCache } = searchSlice.actions
 export default searchSlice.reducer
