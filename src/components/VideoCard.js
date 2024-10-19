@@ -29,17 +29,17 @@ const VideoCard = ({ data, searchPage = false }) => {
             <img className='cursor-pointer w-full max-w-lg rounded-xl' alt="img" src={thumbnails.medium.url} />
             <div className='flex gap-1 m-1 sm:gap-2 sm:m-2'>
                 {!searchPage && <div className="max-w-24">
-                    <span className="font-medium text-gray-600 dark:text-gray-200 w-8 h-8 sm:w-10 sm:h-10 inline-flex items-center justify-center overflow-hidden bg-gray-100 rounded-full dark:bg-slate-600 border border-gray-300 dark:border-gray-500 shadow-md">
+                    <span className="font-medium text-gray-600 dark:text-gray-200 w-7 h-7 sm:w-10 sm:h-10 inline-flex items-center justify-center overflow-hidden bg-gray-100 rounded-full dark:bg-slate-600 border border-gray-300 dark:border-gray-500 shadow-md">
                         {channelTitle.charAt(0)}
                     </span>
                 </div>}
                 <div>
-                    <h2 className={`${!searchPage ? " pb-1 font-bold !overflow-hidden text-ellipsis line-clamp-2 break-all" : ""}`}>
+                    <h2 className={`${!searchPage ? " pb-1 text-sm sm:text-base font-bold !overflow-hidden text-ellipsis line-clamp-2 break-all" : ""}`}>
                         {title}
                     </h2>
-                    {!searchPage && <p className="from-neutral-500 break-all">{channelTitle}</p>}
+                    {!searchPage && <p className="text-sm sm:text-base break-all">{channelTitle}</p>}
 
-                    {formattedViewCount && <span className="text-sm text-gray-500 from-neutral-500 after:content-['•'] after:mr-2 after:ml-2">{formattedViewCount} views</span>}
+                    {formattedViewCount && <span className="sm:text-sm text-xs text-gray-500 from-neutral-500 after:content-['•'] after:mr-2 after:ml-2">{formattedViewCount} views</span>}
                     <RelativeTime timestamp={publishedAt} />
                     {searchPage ? (<div>
                         <div className='flex items-center sm:my-2'>
@@ -50,7 +50,7 @@ const VideoCard = ({ data, searchPage = false }) => {
                             </div>
                             <span className="text-gray-500 pl-4 sm:mr-0 mr-2 break-all">{channelTitle}</span>
                         </div>
-                        <p className="text-gray-500 text-sm sm:mr-0 mr-2 break-all" >{description}</p>
+                        <p className="text-gray-500 sm:text-sm text-xs sm:mr-0 mt-1 mr-2 break-all" >{description}</p>
                     </div>) : null}
                 </div>
             </div>

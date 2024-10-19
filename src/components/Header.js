@@ -57,6 +57,16 @@ const Header = () => {
         navigate("/results?search_query=" + id);
     }
 
+    const handleSearchSubmit = (e) => {
+        e.preventDefault()
+        if (search !== '') {
+            setShowSuggestions(false)
+            const id = search.replaceAll(' ', '+')
+            navigate("/results?search_query=" + id);
+        }
+    }
+
+
     const handleOnBlur = () => {
         setTimeout(() => setShowSuggestions(false), 200);
     }
@@ -74,7 +84,9 @@ const Header = () => {
                     </span>
                 </Link>
             </div>
-            <div className=' relative flex col-span-10 justify-center items-center'>
+            <form
+                onSubmit={handleSearchSubmit}
+                className=' relative flex col-span-10 justify-center items-center'>
                 <input className='w-2/3 border border-gray-400 dark:border-gray-700 dark:bg-gray-950 p-1 px-2 sm:p-2 sm:px-4 rounded-l-full '
                     type='text'
                     value={search}
@@ -96,7 +108,7 @@ const Header = () => {
                             <span className='px-3'>{item}</span>
                         </li>
                     ))} </ul> : null}
-            </div>
+            </form>
             <div className='flex items-center col-span-1 '>
                 <span className="mr-4 text-xl sm:inline hidden">Navpreet </span>
                 <div className="relative sm:hidden w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-slate-600 text-gray-100 flex items-center justify-center overflow-hidden">

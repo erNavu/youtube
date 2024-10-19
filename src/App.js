@@ -5,6 +5,7 @@ import store from "./utils/store";
 import MainContainer from "./components/MainContainer";
 import WatchPage from "./components/WatchPage";
 import ResultsPage from "./components/ResultsPage";
+import ErrorPage from "./Layouts/ErrorPage"
 
 function App() {
 
@@ -24,8 +25,12 @@ function App() {
         {
           path: '/results',
           element: <ResultsPage />
-        }
+        },
       ]
+    },
+    {
+      path: "*",
+      element: <ErrorPage />  // Default fallback for any undefined route (404)
     }
   ], {
     basename: '/youtube'

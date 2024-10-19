@@ -10,11 +10,12 @@ const ResultsPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const videoData = useSelector(store => store.search.searchCache)
-    const searchQueryFromUrl = searchParams.get('search_query').replace(/ /g, "");
+    const searchQueryFromUrl = searchParams.get('search_query')?.replace(/ /g, "");
     const [showMessage, setShowMessage] = useState('')
 
     useEffect(() => {
-        if (searchQueryFromUrl === null) navigate("/results?search_query=");
+        setShowMessage('')
+        if (searchQueryFromUrl === null || searchQueryFromUrl === undefined) navigate("/results?search_query=");
 
         if (searchQueryFromUrl !== '' && !videoData[searchQueryFromUrl]) {
             fetchSearchListData(searchQueryFromUrl)
