@@ -1,70 +1,99 @@
-# Getting Started with Create React App
+## YouTube Clone Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a YouTube clone built using **React**, **Redux**, and **TailwindCSS**, integrating the **YouTube v3 API** to fetch and display video data.
 
-## Available Scripts
+[**View Live Demo here**](https://ernavu.github.io/youtube/)
 
-In the project directory, you can run:
+### Features
 
-### `npm start`
+- **Video Search:** Users can search for videos by entering keywords into the search bar. The app leverages the Google Suggestions API to fetch relevant search results, displayed in a responsive and visually appealing layout.
+  - **Debouncing:** To optimize performance, the app implements a debouncing mechanism that delays API requests until the user stops typing, preventing excessive and unnecessary calls.
+  - **API Response Caching:** Search results are cached, reducing API usage for repeated queries and speeding up future searches.
+  - **Search Results Display:** Clicking on a video from the search results navigates the user to a dedicated search results page showing related videos based on the query.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Home Page:**
+  - Displays a list of the most-watched videos on YouTube, fetched via the YouTube v3 API.
+  - **Video Player:** Users can click on any video card to be directed to the video player, where the selected video can be viewed.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Watch Page:**
+  - Dedicated page for viewing a video with its details, nested comments, and live chat.
+  - **Video Player:** Embeds a video player that supports full-screen mode and plays the selected video.
+  - **Nested Comments:** Comments on the video are fetched from the YouTube API and displayed in a nested structure using recursion, making it easy for users to follow conversations and replies.
+  - **Live Chat:** The watch page also includes a live chat component that periodically polls the YouTube Live Chat API for real-time updates, ensuring that the latest messages are displayed seamlessly.
 
-### `npm test`
+- **State Management:** The application uses **Redux** to manage and centralize the state, ensuring smooth and scalable data flow across different components and interactions.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Responsive Design:** Built with **TailwindCSS**, the interface adapts seamlessly across devices, offering a consistent experience on mobile, tablet, and desktop screens.
 
-### `npm run build`
+### Technical Overview
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **React.js:** The app is built using React, a JavaScript library for creating fast, modular, and interactive user interfaces.
+- **Redux:** Redux handles state management, ensuring data consistency and facilitating complex interactions between components.
+- **TailwindCSS:** A utility-first CSS framework that allows for rapid development and consistent styling, directly within React components.
+- **YouTube v3 API:** Used for fetching video data, search results, related videos, comments, and live chat, providing an interactive experience similar to YouTube.
+- **React-Router:** Implements dynamic routing for seamless navigation between components such as the home page, search results, and watch pages.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Screenshots
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Here are a few snapshots of the app:
 
-### `npm run eject`
+1. **Home Page:**
+   ![Home Page](./src/assets/home.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2. **Search Suggestions:**
+   ![Search Suggestions](./src/assets/suggestions.png)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. **Search Results:**
+   ![Search Results](./src/assets/watchList.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+4. **Video Player:**
+   ![Video Player](./src/assets/video.png)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+5. **Live Chat:**
+   ![Live Chat](./src/assets/livechat.png)
 
-## Learn More
+6. **Nested Comments:**
+   ![Nested Comments](./src/assets/comments.png)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+7. **Full-Screen Video Mode:**
+   ![Full-Screen Mode](./src/assets/fullvideo.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+8. **Responsive:**
+   ![Responsive](./src/assets/responsive.png)
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Getting Started
 
-### Analyzing the Bundle Size
+To run this YouTube clone locally, follow these steps:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/erNavu/youtube.git
+   ```
 
-### Making a Progressive Web App
+2. **Navigate to the project directory:**
+   ```bash
+   cd youtube
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+3. **Install the dependencies:**
+   ```bash
+   npm install
+   ```
 
-### Advanced Configuration
+4. **Obtain a YouTube API Key:**
+   - Go to the [Google Developer Console](https://console.developers.google.com/) to create a project and generate a YouTube API v3 key.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+5. **Create a `.env.local` file in the root directory:**
+   - Add your API key to the environment variable:
+     ```bash
+     REACT_APP_API_KEY=YOUR_API_KEY
+     ```
 
-### Deployment
+6. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+7. **Access the app:**
+   - Open your browser and navigate to `http://localhost:3000` to interact with the YouTube clone.
